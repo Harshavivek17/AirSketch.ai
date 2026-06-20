@@ -25,6 +25,7 @@ import FPSCounter from '@/components/FPSCounter';
 import GestureIndicator from '@/components/GestureIndicator';
 import OnboardingModal from '@/components/OnboardingModal';
 import TabBar from '@/components/TabBar';
+import FloatingActionBar from '@/components/FloatingActionBar';
 import { drawMLSkeletons } from '@/utils/mlDrawUtils';
 
 function generateId(): string {
@@ -729,6 +730,15 @@ const App: React.FC = () => {
         onToggleRecording={handleToggleRecording}
         onSwitchCamera={switchCamera}
         activeMouthState={mouthState}
+      />
+
+      {/* Floating Action Bar */}
+      <FloatingActionBar
+        currentMode={settings.drawingMode}
+        onSetMode={(mode) => handleSettingsChange({ drawingMode: mode })}
+        onUndo={handleUndo}
+        onClear={handleClear}
+        isVisible={isTracking}
       />
 
       {/* Gesture Indicator */}
