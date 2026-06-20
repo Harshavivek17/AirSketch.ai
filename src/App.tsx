@@ -84,6 +84,7 @@ const App: React.FC = () => {
 
   // Track drawing states for left and right hand independently
   const activeDrawingHandsRef = useRef<Record<string, boolean>>({ Left: false, Right: false });
+  const latestPointerRef = useRef<Record<string, Point | null>>({ Left: null, Right: null });
 
   // Refs for gesture, mouth state, and tracking state to avoid state closure issues in the render loop
   const currentGestureRef = useRef<GestureType>('none');
@@ -397,6 +398,7 @@ const App: React.FC = () => {
 
         const indexTip = landmarks[LANDMARK_INDICES.INDEX_TIP];
         const point = landmarkToCanvas(indexTip, canvas.width, canvas.height);
+        latestPointerRef.current[handKey] = point;
 
         if (shouldDraw) {
           if (!activeDrawingHandsRef.current[handKey]) {
@@ -553,10 +555,8 @@ const App: React.FC = () => {
       }
 
       // Draw cursors for all active hands
-      Object.keys(activeStrokes.current).forEach((key) => {
-        const strokeState = activeStrokes.current[key];
-        if (!strokeState) return;
-        const lastPoint = strokeState.lastDrawnPoint;
+      Object.keys(latestPointerRef.current).forEach((key) => {
+        const lastPoint = latestPointerRef.current[key];
         
         if (lastPoint) {
           const isLeft = key === 'Left';

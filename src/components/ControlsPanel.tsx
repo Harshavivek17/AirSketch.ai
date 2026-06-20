@@ -455,14 +455,12 @@ const ControlsPanel: React.FC<ControlsPanelProps> = ({
             <ActionButton
               icon="↩"
               label="Undo"
-              shortcut={isMobile ? undefined : "⌃Z"}
               onClick={onUndo}
               theme={theme}
             />
             <ActionButton
               icon="🗑️"
               label="Clear"
-              shortcut={isMobile ? undefined : "C"}
               onClick={onClear}
               variant="danger"
               theme={theme}
@@ -472,7 +470,6 @@ const ControlsPanel: React.FC<ControlsPanelProps> = ({
             <ActionButton
               icon="💾"
               label="Save PNG"
-              shortcut={isMobile ? undefined : "S"}
               onClick={onSave}
               theme={theme}
             />
